@@ -1,0 +1,64 @@
+.main_section{
+    display: flex;
+    flex-direction: row;
+}
+.hero{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+img{
+    width:40rem ;
+    height: 43rem;
+    margin: 6rem;
+}
+.title{
+    font-size: var(--font-size-h1);
+    font-weight: 500;
+}
+.sub-title{
+    font-size: var(--font-size-h3);
+}
+.login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 4.8rem;
+    width: 50%;
+}
+.info{
+    width: 34.2rem;
+    height: 5.2rem;
+    background-color: #F8F8F8;
+    border-radius: 1.2rem;
+    font-size: var(--font-size-h4);
+    padding-left: 1rem;
+    margin-top: 1.4rem;
+}
+.log-btn{
+    width: 35.2rem;
+    height: 5rem;
+    background-color: #292929;
+    border-radius: 1.2rem;
+    color: white;
+    font-size: var(--font-size-h4);
+}
+.login_input{
+    display: flex;
+    flex-direction: column;
+}
+.go_reg{
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+}
+input.input-error,
+select.input-error {
+    border: 1px solid red ;
+}
+.error{
+    color: red;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+}
