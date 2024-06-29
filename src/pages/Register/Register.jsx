@@ -25,11 +25,21 @@ export default function Register(){
                 <h3 className="sub-title">Твой личный репетитор</h3>
             </div>
             <form onSubmit={handleSubmit} autoComplete="off" className="login">
-                <div>
+                <div className="tit">
                     <h2 className="go_reg">Создать аккаунт</h2>
                     <h2 className="go_reg">Lorby</h2>
                 </div>
                 <div className="login_input">
+                    <input
+                        className={`info ${errors.email && touched.email ? "input-error" : "" }`}
+                        value={values.email}
+                        onChange={handleChange}
+                        id="email"
+                        type="email"
+                        placeholder="Введите email"
+                        onBlur={handleBlur}
+                    />
+                    {errors.email && touched.email && <p className="error">{errors.email}</p>}
                     <input
                         className={`info ${errors.login && touched.login ? "input-error" : "" }`}
                         value={values.login}
@@ -50,6 +60,16 @@ export default function Register(){
                         onBlur={handleBlur}
                     />
                     {errors.password && touched.password && <p className="error">{errors.password}</p>}
+                    <input
+                        className={`info ${errors.confirmPassword && touched.confirmPassword ? "input-error" : "" }`}
+                        value={values.confirmPassword}
+                        onChange={handleChange}
+                        id="confirmPassword"
+                        type="password"
+                        placeholder="Подтвердите пароль"
+                        onBlur={handleBlur}
+                    />
+                    {errors.confirmPassword && touched.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
                 </div>
                 <button type="submit" className="log-btn">Войти</button>
             </form>

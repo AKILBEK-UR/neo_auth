@@ -51,7 +51,7 @@ export default function Login(){
                     {errors.password && touched.password && <p className="error">{errors.password}</p>}
                 </div>
                 <button type="submit" className="log-btn">Войти</button>
-                <Link to={`/register`}><button className="go_reg">У меня еще нет аккаунта</button></Link>
+                <Link to={`/register`}><button style={{fontSize:"16px",fontWeight:"600"}}>У меня еще нет аккаунта</button></Link>
             </form>
         </div>
     </>
