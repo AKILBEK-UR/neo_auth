@@ -37,4 +37,8 @@ textarea {
     vertical-align: middle;
     background-color: transparent;
     cursor: pointer;
+    transition: 0.3s;
+}
+button:hover{
+    opacity: 0.75;
 }

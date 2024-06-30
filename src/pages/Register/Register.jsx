@@ -2,8 +2,12 @@ import "../Mainpage/Login.css"
 import main_img from "../../assets/illustration.png"
 import { useFormik } from "formik"
 import { registerSchema } from "../../schemas/register"
+import { useNavigate } from "react-router-dom"
+import back from "../../assets/back.svg";
 
 export default function Register(){
+
+    const navigate = useNavigate();
     const onSubmit = () => {
         console.log("Submitted!");
     }
@@ -19,8 +23,12 @@ export default function Register(){
     console.log(errors)
     return <>
         <div className="main_section">
+            <button onClick={() => navigate(-1)} className="goback">
+                <img src={back} alt="Назад" style={{width:"28px"}}/>
+                <p>Назад</p>
+            </button>
             <div className="hero">
-                <img src={main_img} />
+                <img src={main_img} className="hero-img"/>
                 <h1 className="title">Lorby</h1>
                 <h3 className="sub-title">Твой личный репетитор</h3>
             </div>
@@ -71,7 +79,7 @@ export default function Register(){
                     />
                     {errors.confirmPassword && touched.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
                 </div>
-                <button type="submit" className="log-btn">Войти</button>
+                <button type="submit" className="log-btn">Далее</button>
             </form>
         </div>
     </>

@@ -8,7 +8,7 @@
     flex-direction: column;
     align-items: center;
 }
-img{
+.hero-img{
     width:40rem ;
     height: 43rem;
     margin: 6rem;
@@ -66,4 +66,16 @@ select.input-error {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.goback{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    width: 9.6rem;
+    height: 5.2rem;
+    font-size: var(--font-size-h4);
+    left: 70rem;
+    top: 1rem;
 }

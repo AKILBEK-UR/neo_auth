@@ -22,7 +22,7 @@ export default function Login(){
     return <>
         <div className="main_section">
             <div className="hero">
-                <img src={main_img} />
+                <img src={main_img} className="hero-img"/>
                 <h1 className="title">Lorby</h1>
                 <h3 className="sub-title">Твой личный репетитор</h3>
             </div>
