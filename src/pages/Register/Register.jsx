@@ -2,27 +2,48 @@ import "../Mainpage/Login.css"
 import main_img from "../../assets/illustration.png"
 import { useFormik } from "formik"
 import { registerSchema } from "../../schemas/register"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import back from "../../assets/back.svg";
-
+import axios from "axios"
+import { useState } from "react"
 export default function Register(){
-
+    const [alreadyLogined, setAlreadylogined] = useState('')
     const navigate = useNavigate();
-    const onSubmit = () => {
-        console.log("Submitted!");
-    }
+    const onSubmit = async (values) => {
+        try {
+            const response = await axios.post(`https://lorby.online/api/v1/auth/register`, {
+                username: values.login,
+                password: values.password,
+                email:values.email
+            });
+            if (response.status === 200){
+                <Link to={"/verification"}></Link>
+            }
+            console.log(response);
+        } catch (error) {
+            if(error.response && error.response.status === 400){
+                setAlreadylogined('Уже существующий пользователь!')
+            }
+            console.error('Error fetching login:', error);
+
+            setTimeout(() => {
+                setAlreadylogined('');
+            }, 3000);
+        }
+    };
 
     const {values, errors, touched, handleBlur, handleChange, handleSubmit} = useFormik({
         initialValues:{
             login: "",
             password:"",
+            email:""
         },
         validationSchema: registerSchema,
         onSubmit,
     });
-    console.log(errors)
     return <>
         <div className="main_section">
+            {alreadyLogined && <p className="errorMessage">{alreadyLogined}</p>}
             <button onClick={() => navigate(-1)} className="goback">
                 <img src={back} alt="Назад" style={{width:"28px"}}/>
                 <p>Назад</p>
@@ -79,7 +100,7 @@ export default function Register(){
                     />
                     {errors.confirmPassword && touched.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
                 </div>
-                <button type="submit" className="log-btn">Далее</button>
+                <Link to={"/verification"}><button type="submit" className="log-btn">Далее</button></Link>
             </form>
         </div>
     </>

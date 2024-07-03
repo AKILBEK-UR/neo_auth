@@ -52,6 +52,7 @@
 .go_reg{
     font-size: var(--font-size-h2);
     font-weight: 600;
+    text-align: center;
 }
 input.input-error,
 select.input-error {
@@ -78,4 +79,19 @@ select.input-error {
     font-size: var(--font-size-h4);
     left: 70rem;
     top: 1rem;
+}
+
+.errorMessage{
+    position: absolute;
+    font-size: var(--font-size-h4);
+    left: 96.5rem;
+    top: 1rem;
+    border: 1px solid red;
+    color: red;
+    height: 5.4rem;
+    width: 34.3rem;
+    border-radius: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
