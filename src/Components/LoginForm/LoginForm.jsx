@@ -1,12 +1,11 @@
-import "./Login.css";
-import main_img from "../../assets/illustration.png";
+import "./LoginForm.css";
 import { useFormik } from "formik";
 import { loginSchema } from "../../schemas/login";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 
-export default function Login() {
+export default function LoginForm() {
     const [errorMessage, setErrorMessage] = useState("")
     const onSubmit = async (values) => {
         try {
@@ -39,11 +38,6 @@ export default function Login() {
     return (
         <div className="main_section">
             {errorMessage && <p className="errorMessage">{errorMessage}</p>}
-            <div className="hero">
-                <img src={main_img} className="hero-img" />
-                <h1 className="title">Lorby</h1>
-                <h3 className="sub-title">Твой личный репетитор</h3>
-            </div>
             <form onSubmit={handleSubmit} autoComplete="off" className="login">
                 <h2 className="go_reg">Вэлком бэк!</h2>
                 <div className="login_input">

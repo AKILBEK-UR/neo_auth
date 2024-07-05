@@ -1,0 +1,18 @@
+.hero{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.hero-img{
+    width:40rem ;
+    height: 43rem;
+    margin: 6rem;
+}
+.title{
+    font-size: var(--font-size-h1);
+    font-weight: 500;
+}
+.sub-title{
+    font-size: var(--font-size-h3);
+}
