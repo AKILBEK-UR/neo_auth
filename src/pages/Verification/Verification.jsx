@@ -6,7 +6,8 @@ export default function Verification(){
     return <>
         <div className="mainpage">
             <Heroimg />
-            <VerificationForm />
+            <VerificationForm 
+            />
         </div>
     </>
 }

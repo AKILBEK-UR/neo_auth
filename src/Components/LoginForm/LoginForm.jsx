@@ -1,18 +1,30 @@
 import "./LoginForm.css";
-import { useFormik } from "formik";
-import { loginSchema } from "../../schemas/login";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/authSlice";
 
 export default function LoginForm() {
-    const [errorMessage, setErrorMessage] = useState("")
-    const onSubmit = async (values) => {
+    const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState("");
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const userRef = useRef();
+
+    useEffect(() => {
+        userRef.current.focus();
+    }, []);
+
+    const dispatch = useDispatch();
+
+    const onSubmit = async (event) => {
+        event.preventDefault(); // Prevent default form submission
         try {
-            const response = await axios.post(`https://lorby.online/api/v1/auth/login`, {
-                username: values.login,
-                password: values.password
-            });
+            const response = await dispatch(login({ username, password }));
+            if (response?.error?.message) {
+                throw new Error(response.error.message);
+            }
+            navigate("/profile");
         } catch (error) {
             if (error.response && error.response.status === 401) {
                 setErrorMessage('Неверный пароль или логин!');
@@ -24,45 +36,39 @@ export default function LoginForm() {
                 setErrorMessage('');
             }, 3000);
         }
+        // Optionally, clear the inputs after submission
+        // setPassword('');
+        // setUsername('');
     };
-
-    const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-        initialValues: {
-            login: "",
-            password: "",
-        },
-        validationSchema: loginSchema,
-        onSubmit,
-    });
 
     return (
         <div className="main_section">
             {errorMessage && <p className="errorMessage">{errorMessage}</p>}
-            <form onSubmit={handleSubmit} autoComplete="off" className="login">
+            <form onSubmit={onSubmit} autoComplete="off" className="login">
                 <h2 className="go_reg">Вэлком бэк!</h2>
                 <div className="login_input">
                     <input
-                        className={`info ${errors.login && touched.login ? "input-error" : ""}`}
-                        value={values.login}
-                        onChange={handleChange}
-                        id="login"
+                        className="info"
+                        value={username}
+                        ref={userRef}
+                        onChange={(e) => setUsername(e.target.value)}
+                        id="username"
                         type="text"
                         placeholder="Введите логин"
-                        onBlur={handleBlur}
+                        required
                     />
-                    {errors.login && touched.login && <p className="error">{errors.login}</p>}
                     <input
-                        className={`info ${errors.password && touched.password ? "input-error" : ""}`}
-                        value={values.password}
-                        onChange={handleChange}
+                        className="info"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         id="password"
                         type="password"
                         placeholder="Пароль"
-                        onBlur={handleBlur}
+                        required
                     />
-                    {errors.password && touched.password && <p className="error">{errors.password}</p>}
                 </div>
                 <button type="submit" className="log-btn">Войти</button>
+
                 <Link to={`/register`}><button style={{ fontSize: "16px", fontWeight: "600" }}>У меня еще нет аккаунта</button></Link>
             </form>
         </div>

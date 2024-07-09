@@ -3,24 +3,27 @@ import { useFormik } from "formik";
 import { registerSchema } from "../../schemas/register";
 import { useNavigate, Link } from "react-router-dom";
 import back from "../../assets/back.svg";
-import axios from "axios";
 import { useState } from "react";
-
+import { register } from "../../store/authSlice";
+import { useDispatch } from "react-redux";
 export default function RegisterForm() {
     const [alreadyLogined, setAlreadylogined] = useState('');
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const onSubmit = async (values) => {
+        const value = {
+            username: values.login,
+            password:values.password,
+            email:values.email
+        }
         try {
-            const response = await axios.post(`https://lorby.online/api/v1/auth/register`, {
-                username: values.login,
-                password: values.password,
-                email: values.email
-            });
-            if (response.status === 200) {
-                console.log(response);
-                navigate('/verification'); // Navigate to the verification page
+            const response = await dispatch(register(value))
+            console.log(response)
+            if(response?.error?.message ){
+                throw new Error();
             }
+            navigate("/verification")
         } catch (error) {
             if (error.response && error.response.status === 400) {
                 setAlreadylogined('Уже существующий пользователь!');
@@ -37,7 +40,7 @@ export default function RegisterForm() {
             login: "",
             password: "",
             email: "",
-            confirmPassword: ""
+            confirmPassword:""
         },
         validationSchema: registerSchema,
         onSubmit,
